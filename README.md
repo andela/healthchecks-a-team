@@ -65,6 +65,13 @@ The site should now be running at `http://localhost:8080`
 To log into Django administration site as a super user,
 visit `http://localhost:8080/admin`
 
+## Running Tests
+To run the application tests to see if anything is broken, execute the following command
+
+* run test:
+
+        $ ./manage.py test
+
 ## Database Configuration
 
 Database configuration is stored in `hc/settings.py` and can be overriden
