@@ -25,7 +25,7 @@ DEFAULT_FROM_EMAIL = 'healthchecks@example.org'
 USE_PAYMENTS = False
 
 
-if os.environ.get('DATABASE_URL') == True:
+if os.environ.get('DATABASE_URL'):
     db_from_env  = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
     DATABASES['default']['CONN_MAX_AGE'] = 400
