@@ -40,7 +40,9 @@ in development environment.
 
 * install requirements (Django, ...) into virtualenv:
 
-        $ pip install -r healthchecks/requirements.txt
+
+        $ pip install -r healthchecks-a-team/requirements.txt
+        
 
 * make sure PostgreSQL server is installed and running, create
   database "hc":
