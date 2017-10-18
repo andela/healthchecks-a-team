@@ -25,11 +25,6 @@ DEFAULT_FROM_EMAIL = 'healthchecks@example.org'
 USE_PAYMENTS = False
 
 
-if os.environ.get('DATABASE_URL'):
-    db_from_env  = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
-    DATABASES['default']['CONN_MAX_AGE'] = 400
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 
@@ -99,6 +94,11 @@ DATABASES = {
 }
 
 # Check If App Is On Heroku
+if os.environ.get('DATABASE_URL'):
+    db_from_env  = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DATABASES['default']['CONN_MAX_AGE'] = 400
+    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # You can switch database engine to postgres or mysql using environment
