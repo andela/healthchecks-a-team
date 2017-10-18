@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/andela/healthchecks-a-team.svg?style=svg)](https://circleci.com/gh/andela/healthchecks-a-team)
 
+[![Build Status](https://travis-ci.org/andela/healthchecks-a-team.svg?branch=develop)](https://travis-ci.org/andela/healthchecks-a-team)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
