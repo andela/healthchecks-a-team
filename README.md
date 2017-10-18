@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/andela/healthchecks-a-team.svg?branch=develop)](https://travis-ci.org/andela/healthchecks-a-team)
 
+[![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks-a-team/badge.svg?branch=chore_circleci_and_travis)](https://coveralls.io/github/andela/healthchecks-a-team?branch=chore_circleci_and_travis)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
