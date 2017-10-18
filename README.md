@@ -2,9 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/andela/healthchecks-a-team.svg?style=svg)](https://circleci.com/gh/andela/healthchecks-a-team)
 
-[![Build Status](https://travis-ci.org/andela/healthchecks-a-team.svg?branch=develop)](https://travis-ci.org/andela/healthchecks-a-team)
+[![Build Status](https://travis-ci.org/andela/healthchecks-a-team.svg)](https://travis-ci.org/andela/healthchecks-a-team)
 
-[![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks-a-team/badge.svg?branch=chore_circleci_and_travis)](https://coveralls.io/github/andela/healthchecks-a-team?branch=chore_circleci_and_travis)
+[![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks-a-team/badge.svg)](https://coveralls.io/github/andela/healthchecks-a-team)
 
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
