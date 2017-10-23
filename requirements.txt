@@ -11,7 +11,7 @@ futures==3.0.3
 gunicorn==19.7.1
 lxml==4.1.0
 premailer==2.9.6
-psycopg2==2.6.2
+psycopg2>=2.6.2
 rcssmin==1.0.6
 requests==2.9.1
 rjsmin==1.0.12
