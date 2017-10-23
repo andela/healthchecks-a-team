@@ -1,5 +1,11 @@
 # healthchecks
 
+[![CircleCI](https://circleci.com/gh/andela/healthchecks-a-team.svg?style=svg)](https://circleci.com/gh/andela/healthchecks-a-team)
+
+[![Build Status](https://travis-ci.org/andela/healthchecks-a-team.svg)](https://travis-ci.org/andela/healthchecks-a-team)
+
+[![Coverage Status](https://coveralls.io/repos/github/andela/healthchecks-a-team/badge.svg)](https://coveralls.io/github/andela/healthchecks-a-team)
+
 ![Screenshot of Welcome page](/stuff/screenshots/welcome.png?raw=true "Welcome Page")
 
 ![Screenshot of My Checks page](/stuff/screenshots/my_checks.png?raw=true "My Checks Page")
@@ -40,7 +46,9 @@ in development environment.
 
 * install requirements (Django, ...) into virtualenv:
 
-        $ pip install -r healthchecks/requirements.txt
+
+        $ pip install -r healthchecks-a-team/requirements.txt
+        
 
 * make sure PostgreSQL server is installed and running, create
   database "hc":
@@ -62,6 +70,13 @@ in development environment.
 The site should now be running at `http://localhost:8080`
 To log into Django administration site as a super user,
 visit `http://localhost:8080/admin`
+
+## Running Tests
+To run the application tests to see if anything is broken, execute the following command
+
+* run test:
+
+        $ ./manage.py test
 
 ## Database Configuration
 
