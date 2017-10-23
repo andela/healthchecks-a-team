@@ -37,7 +37,7 @@ class AddChannelTestCase(BaseTestCase):
             r = self.client.get(url)
             self.assertContains(r, "Integration Settings", status_code=200)
 
-    def test_bad_kinds_work(self):
+    def test_bad_kinds_do_not_work(self):
         # Test that bad kinds don't work
         self.client.login(username="alice@example.org", password="password")
         url = "/integrations/add_not/"
