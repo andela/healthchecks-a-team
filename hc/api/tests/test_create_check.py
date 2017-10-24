@@ -96,4 +96,19 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(r["error"], "name is not a string")
 
     ### Test for the assignment of channels
+    
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
+    def test_it_rejects_very_small_timeouts(self):
+        r = self.post({"api_key": "abc", "name": "abc", "timeout":10},
+                  expected_error="timeout is too small")
+        
+        r = r.json()
+        self.assertEqual(r["error"], "timeout is too small")
+
+    
+    def test_it_rejects_very_large_timeouts(self):
+        r = self.post({"api_key": "abc", "name": "abc", "timeout":100000000},
+                  expected_error="timeout is too large")
+        
+        r = r.json()
+        self.assertEqual(r["error"], "timeout is too large")
