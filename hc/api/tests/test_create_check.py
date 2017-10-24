@@ -16,7 +16,10 @@ class CreateCheckTestCase(BaseTestCase):
 
         if expected_error:
             self.assertEqual(r.status_code, 400)
+            
             ### Assert that the expected error is the response error
+            self.assertEqual(
+                json.loads(str(r.content, 'utf-8'))["error"], expected_error)
 
         return r
 
