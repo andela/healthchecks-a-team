@@ -53,6 +53,7 @@ class AddChannelTestCase(BaseTestCase):
         self.client.post(url, form)
         self.channel = Channel.objects.filter(value="alice@example.org")
         url = "/integrations/%s/checks/" % self.channel.first().code
+        self.client.logout()
         self.client.login(username="bob@example.org", password="password")
         r = self.client.get(url)
         self.assertContains(r, "Assign Checks to Channel", status_code=200)
