@@ -51,12 +51,14 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(check.grace.total_seconds(), 60)
 
     def test_it_accepts_api_key_in_header(self):
-        payload = json.dumps({"name": "Foo"})
+        payload = {"name": "Foo"}
+        r = self.post(payload)
 
+        self.assertEqual(r.status_code, 400)
         ### Make the post request and get the response
-        r = {'status_code': 201} ### This is just a placeholder variable
-
-        self.assertEqual(r['status_code'], 201)
+        # r = {'status_code': 201} ### This is just a placeholder variable
+        r  = r.json()
+        self.assertEqual(r['error'], "wrong api_key")
 
     def test_it_handles_missing_request_body(self):
         ### Make the post request with a missing body and get the response
