@@ -1,10 +1,9 @@
-from django.test import Client, TestCase
-
 from hc.api.models import Check, Ping
+from hc.test import BaseTestCase
 
 
-class PingTestCase(TestCase):
 
+class PingTestCase(BaseTestCase):
     def setUp(self):
         super(PingTestCase, self).setUp()
         self.check = Check.objects.create()
@@ -50,6 +49,8 @@ class PingTestCase(TestCase):
                             HTTP_X_FORWARDED_FOR=ip)
         ping = Ping.objects.latest("id")
         ### Assert the expected response status code and ping's remote address
+        assert r.status_code == 200
+        assert ping.remote_addr == "1.1.1.1"
 
         ip = "1.1.1.1, 2.2.2.2"
         r = self.client.get("/ping/%s/" % self.check.code,
@@ -63,11 +64,34 @@ class PingTestCase(TestCase):
                             HTTP_X_FORWARDED_PROTO="https")
         ping = Ping.objects.latest("id")
         ### Assert the expected response status code and ping's scheme
+        assert r.status_code == 200
+        assert ping.scheme == "https"
 
     def test_it_never_caches(self):
         r = self.client.get("/ping/%s/" % self.check.code)
         assert "no-cache" in r.get("Cache-Control")
 
     ### Test that when a ping is made a check with a paused status changes status
+    def test_it_changes_status_of_paused_check(self):
+        check = Check(user=self.alice, status="up")
+        check.save()
+
+        assert check.status == "up"
+        url = "/api/v1/checks/%s/pause" % check.code
+        elf.client.post(url, "", content_type="application/json",
+                             HTTP_X_API_KEY="abc")
+        check.refresh_from_db()
+        assert check.status == "paused"
+
+        self.client.get("/ping/%s/" % check.code)
+        check.refresh_from_db()
+        assert check.status == "up"
+
     ### Test that a post to a ping works
+    def test_that_post_to_a_ping_works(self):
+        r = self.client.post("/ping/%s/" % self.check.code)
+        assert r.status_code == 200
+
     ### Test that the csrf_client head works
+    def test_that_csrf_client_head_works(self):
+       pass
