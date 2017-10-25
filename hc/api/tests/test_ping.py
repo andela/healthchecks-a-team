@@ -78,7 +78,7 @@ class PingTestCase(BaseTestCase):
 
         assert check.status == "up"
         url = "/api/v1/checks/%s/pause" % check.code
-        elf.client.post(url, "", content_type="application/json",
+        self.client.post(url, "", content_type="application/json",
                              HTTP_X_API_KEY="abc")
         check.refresh_from_db()
         assert check.status == "paused"
