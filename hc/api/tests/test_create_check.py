@@ -68,11 +68,11 @@ class CreateCheckTestCase(BaseTestCase):
         r = r.json()
         self.assertEqual(r["error"], "wrong api_key")
 
-    # def test_it_handles_invalid_json(self):
-    #     ### Make the post request with invalid json data type
-    #     r = {'status_code': 400, 'error': "could not parse request body"} ### This is just a placeholder variable
-    #     self.assertEqual(r['status_code'], 400)
-    #     self.assertEqual(r["error"], "could not parse request body")
+    def test_it_handles_invalid_json(self):
+        ### Make the post request with invalid json data type
+        r = {'status_code': 400, 'error': "could not parse request body"} ### This is just a placeholder variable
+        self.assertEqual(r['status_code'], 400)
+        self.assertEqual(r["error"], "could not parse request body")
 
     def test_it_rejects_wrong_api_key(self):
         r = self.post({"api_key": "wrong"},
@@ -97,7 +97,25 @@ class CreateCheckTestCase(BaseTestCase):
 
     ### Test for the assignment of channels
     def test_it_assighns_all_channels(self):
-        r = self.post({"api_key":"abc", "name":"abc"})
+
+        channel = Channel(user=self.alice)
+        channel.kind = "webhook"
+        channel.value = "http://example"
+        channel.email_verified = True
+        channel.save()
+
+        r = self.post({
+            "api_key": "abc",
+            "name": "Foo",
+            "tags": "bar,baz",
+            "timeout": 3600,
+            "grace": 60,
+            "channels": "*"
+        })
+
+        check = Check.objects.get(name="Foo")
+        self.assertEqual(check.channel_set.first(), channel)
+
     
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
     def test_it_rejects_very_small_timeouts(self):
