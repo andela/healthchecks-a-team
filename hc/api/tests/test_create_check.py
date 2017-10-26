@@ -96,13 +96,19 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(r["error"], "name is not a string")
 
     ### Test for the assignment of channels
-    def test_it_assighns_all_channels(self):
+    def test_it_assigns_all_channels(self):
 
-        channel = Channel(user=self.alice)
-        channel.kind = "webhook"
-        channel.value = "http://example"
-        channel.email_verified = True
-        channel.save()
+        # create several channels to test that they are all assigned 
+        # (m2m relationship)
+        urls = ["http://example", "http://examplex", "http://exampley"]
+        channels = {}
+        for url in urls:
+            channel = Channel(user=self.alice)
+            channel.kind = "webhook"
+            channel.value = url
+            channel.email_verified = True
+            channel.save()
+            channels[channel.code] = channel
 
         r = self.post({
             "api_key": "abc",
@@ -114,7 +120,9 @@ class CreateCheckTestCase(BaseTestCase):
         })
 
         check = Check.objects.get(name="Foo")
-        self.assertEqual(check.channel_set.first(), channel)
+        # chech that every channel in the channel_set tuple is in the channels dict
+        for channel in check.channel_set.all():
+            assert channel.code in channels
 
     
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
