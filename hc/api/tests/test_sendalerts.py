@@ -21,7 +21,7 @@ class SendAlertsTestCase(BaseTestCase):
             check.save()
 
         result = Command().handle_many()
-        assert result, "handle_many should return True"
+        # assert result, "handle_many should return True"
         self.assertTrue(result)
 
         handled_names = []
@@ -38,6 +38,6 @@ class SendAlertsTestCase(BaseTestCase):
         check.save()
 
         # Expect no exceptions--
-        Command().handle_one(check)
-
+        result = Command().handle_many()
     ### Assert when Command's handle many that when handle_many should return True
+        self.assertEqual(False, result)
