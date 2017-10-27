@@ -43,4 +43,17 @@ class SendAlertsTestCase(BaseTestCase):
 
 
     ### Assert when Command's handle many that when handle_many should return True
-        self.assertEqual(False, result)
+    # handle many test re-written to handle the 'going down' condition
+    @patch("hc.api.management.commands.sendalerts.Command.handle_one")
+    def test_it_handles_checks_that_are_going_down(self, mock):
+        tomorrow = timezone.now() + timedelta(days=1)
+        names = ["Check %d" % d for d in range(0, 10)]
+
+        for name in names:
+            check = Check(user=self.alice, name=name)
+            check.alert_after = tomorrow
+            check.status = "down"
+            check.save()
+
+        result = Command().handle_many()
+        assert result, "handle_many should return True"
