@@ -77,25 +77,19 @@ class CreateCheckTestCase(BaseTestCase):
         self.assertEqual(r["error"], "could not parse request body")
 
     def test_it_rejects_wrong_api_key(self):
-        r = self.post({"api_key": "wrong"},
-                  expected_error="wrong api_key")
-        r = r.json()
-        self.assertEqual(r["error"], "wrong api_key")
-
+        self.post(
+            {"api_key": "wrong"}, 
+            expected_error="wrong api_key")
 
     def test_it_rejects_non_number_timeout(self):
-        r = self.post({"api_key": "abc", "timeout": "oops"},
-                  expected_error="timeout is not a number")
-
-        r = r.json()
-        self.assertEqual(r["error"], "timeout is not a number")
+        self.post(
+            {"api_key": "abc", "timeout": "oops"}, 
+            expected_error="timeout is not a number")
 
     def test_it_rejects_non_string_name(self):
-        r = self.post({"api_key": "abc", "name": False},
-                  expected_error="name is not a string")
-        
-        r = r.json()
-        self.assertEqual(r["error"], "name is not a string")
+        self.post(
+            {"api_key": "abc", "name": False},
+            expected_error="name is not a string")
 
     ### Test for the assignment of channels
     def test_it_assigns_all_channels(self):
@@ -136,16 +130,11 @@ class CreateCheckTestCase(BaseTestCase):
     
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
     def test_it_rejects_very_small_timeouts(self):
-        r = self.post({"api_key": "abc", "name": "abc", "timeout":10},
-                  expected_error="timeout is too small")
-        
-        r = r.json()
-        self.assertEqual(r["error"], "timeout is too small")
-
+        self.post(
+            {"api_key": "abc", "name": "abc", "timeout": 10},
+            expected_error="timeout is too small")
     
     def test_it_rejects_very_large_timeouts(self):
-        r = self.post({"api_key": "abc", "name": "abc", "timeout":100000000},
-                  expected_error="timeout is too large")
-        
-        r = r.json()
-        self.assertEqual(r["error"], "timeout is too large")
+        self.post(
+            {"api_key": "abc", "name": "abc", "timeout": 100000000},
+            expected_error="timeout is too large")
