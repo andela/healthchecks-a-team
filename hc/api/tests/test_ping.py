@@ -71,15 +71,16 @@ class PingTestCase(BaseTestCase):
         r = self.client.get("/ping/%s/" % self.check.code)
         self.assertTrue("no-cache" in r.get("Cache-Control"))
 
-    ### Test that when a ping is made a check with a paused status changes status
+    ### Test that when a ping is made a check with a paused status 
+    # changes status
     def test_it_changes_status_of_paused_check(self):
         check = Check(user=self.alice, status="up")
         check.save()
 
         self.assertTrue(check.status == "up")
         url = "/api/v1/checks/%s/pause" % check.code
-        self.client.post(url, "", content_type="application/json",
-                             HTTP_X_API_KEY="abc")
+        self.client.post(
+            url, "", content_type="application/json", HTTP_X_API_KEY="abc")
         check.refresh_from_db()
         self.assertTrue(check.status == "paused")
 

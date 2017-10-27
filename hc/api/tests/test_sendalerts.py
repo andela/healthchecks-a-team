@@ -42,7 +42,9 @@ class SendAlertsTestCase(BaseTestCase):
         self.assertTrue(result)
 
 
-    ### Assert when Command's handle many that when handle_many should return True
+    ### Assert when Command's handle many that when handle_many should 
+    # return True
+    
     # handle many test re-written to handle the 'going down' condition
     @patch("hc.api.management.commands.sendalerts.Command.handle_one")
     def test_it_handles_checks_that_are_going_down(self, mock):

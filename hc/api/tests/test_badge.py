@@ -23,9 +23,10 @@ class BadgeTestCase(BaseTestCase):
         url = "/badge/%s/%s/foo.svg" % (self.alice.username, sig)
 
         r = self.client.get(url)
-        ### Assert that the svg is returned
 
-        # self.assertEqual(r.status_code, 400)
-        self.assertTrue(b'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"' in r.content)
+        ### Assert that the svg is returned
+        self.assertTrue(
+            b'<svg xmlns="http://www.w3.org/2000/svg" xmlns:\
+            xlink="http://www.w3.org/1999/xlink"' in r.content)
         
         

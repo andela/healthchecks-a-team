@@ -235,7 +235,7 @@ class NotifyTestCase(BaseTestCase):
     @patch("hc.api.transports.requests.request")
     def test_webhooks_handles_connection_error(self, mock_get):
         self._setup_data("webhook", "http://example")
-        mock_get.side_effect=ConnectionError()
+        mock_get.side_effect = ConnectionError()
 
         self.channel.notify(self.check)
 
@@ -251,4 +251,3 @@ class NotifyTestCase(BaseTestCase):
 
         n = Notification.objects.get()
         self.assertEqual(n.error, "Received status code 500")
-

@@ -19,7 +19,8 @@ class CreateCheckTestCase(BaseTestCase):
             
             ### Assert that the expected error is the response error
             self.assertEqual(
-                json.loads(str(r.content.decode('utf-8') ))["error"], expected_error)
+                json.loads(
+                    str(r.content.decode('utf-8')))["error"], expected_error)
 
         return r
 
@@ -63,14 +64,12 @@ class CreateCheckTestCase(BaseTestCase):
     def test_it_handles_missing_request_body(self):
         ### Make the post request with a missing body and get the response
         r = self.post({})
-        # r = {'status_code': 400, 'error': "wrong api_key"} ### This is just a placeholder variable
         self.assertEqual(r.status_code, 400)
         r = r.json()
         self.assertEqual(r["error"], "wrong api_key")
 
     def test_it_handles_invalid_json(self):
         ### Make the post request with invalid json data type
-        # r = {'status_code': 400, 'error': "could not parse request body"} ### This is just a placeholder variable
         r = self.client.post(self.URL, "invalid json",
                              content_type="application/json")
         self.assertEqual(r.status_code, 400)
@@ -127,7 +126,8 @@ class CreateCheckTestCase(BaseTestCase):
         })
 
         check = Check.objects.get(name="Foo")
-        # check that every channel in the channel_set tuple is in the channels dict
+        # check that every channel in the channel_set tuple is in the channels 
+        # dict
         for channel in check.channel_set.all():
             # this assert checks that the codes in the channel set
             # matched the keys in the channels we created up there
