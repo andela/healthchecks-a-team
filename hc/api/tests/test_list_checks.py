@@ -33,31 +33,31 @@ class ListChecksTestCase(BaseTestCase):
     def test_it_works(self):
         r = self.get()
         ### Assert the response status code
-        assert r.status_code == 200
+        self.assertTrue(r.status_code == 200)
 
         doc = r.json()
         self.assertTrue("checks" in doc)
 
         checks = {check["name"]: check for check in doc["checks"]}
         ### Assert the expected length of checks
-        assert len(checks) == 2
+        self.assertTrue(len(checks) == 2)
         ### Assert the checks Alice 1 and Alice 2's timeout, grace, ping_url, status,
         ### last_ping, n_pings and pause_url
-        assert self.a1.timeout == td(seconds=3600)
-        assert self.a1.grace == td(seconds=900)
-        assert self.a1.status == "new"
-        assert self.a1.last_ping == self.now
+        self.assertTrue(self.a1.timeout == td(seconds=3600))
+        self.assertTrue(self.a1.grace == td(seconds=900))
+        self.assertTrue(self.a1.status == "new")
+        self.assertTrue(self.a1.last_ping == self.now)
         r = self.a1.to_dict()
-        assert r['ping_url'] == "http://localhost:8000/ping/" + str(self.a1.code)
-        assert r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a1.code) + "/pause"
+        self.assertTrue(r['ping_url'] == "http://localhost:8000/ping/" + str(self.a1.code))
+        self.assertTrue(r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a1.code) + "/pause")
 
-        assert self.a2.timeout == td(seconds=86400)
-        assert self.a2.grace == td(seconds=3600)
-        assert self.a2.status == "up"
-        assert self.a2.last_ping == self.now
+        self.assertTrue(self.a2.timeout == td(seconds=86400))
+        self.assertTrue(self.a2.grace == td(seconds=3600))
+        self.assertTrue(self.a2.status == "up")
+        self.assertTrue(self.a2.last_ping == self.now)
         r = self.a2.to_dict()
-        assert r['ping_url'] == "http://localhost:8000/ping/" + str(self.a2.code)
-        assert r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a2.code) + "/pause"
+        self.assertTrue(r['ping_url'] == "http://localhost:8000/ping/" + str(self.a2.code))
+        self.assertTrue(r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a2.code) + "/pause")
 
 
 
@@ -78,6 +78,6 @@ class ListChecksTestCase(BaseTestCase):
     def test_it_accepts_api_key_in_request(self):
         r = self.get_checks()
         data = r.json()
-        self.assertTrue(data['error'], 'wrong api_key')
+        self.assertEqual(data['error'], 'wrong api_key')
 
 

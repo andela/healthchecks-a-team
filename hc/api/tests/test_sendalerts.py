@@ -28,7 +28,7 @@ class SendAlertsTestCase(BaseTestCase):
         for args, kwargs in mock.call_args_list:
             handled_names.append(args[0].name)
 
-        assert set(names) == set(handled_names)
+        self.assertTrue(set(names) == set(handled_names))
         ### The above assert fails. Make it pass
 
     def test_it_handles_grace_period(self):
@@ -56,4 +56,4 @@ class SendAlertsTestCase(BaseTestCase):
             check.save()
 
         result = Command().handle_many()
-        assert result, "handle_many should return True"
+        self.assertTrue(result, "handle_many should return True")
