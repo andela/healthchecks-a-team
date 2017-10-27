@@ -4,7 +4,7 @@ from hc.test import BaseTestCase
 
 class AddCheckTestCase(BaseTestCase):
     def setUp(self):
-        super().setUp()
+        super(AddCheckTestCase, self).setUp()
         self.url = "/checks/add/"
         self.client.login(username="alice@example.org", password="password")
 
