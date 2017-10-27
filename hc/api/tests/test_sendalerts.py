@@ -38,6 +38,9 @@ class SendAlertsTestCase(BaseTestCase):
         check.save()
 
         # Expect no exceptions--
-        result = Command().handle_many()
+        result = Command().handle_one(check)
+        self.assertTrue(result)
+
+
     ### Assert when Command's handle many that when handle_many should return True
         self.assertEqual(False, result)
