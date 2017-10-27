@@ -26,7 +26,6 @@ class BadgeTestCase(BaseTestCase):
 
         ### Assert that the svg is returned
         self.assertTrue(
-            b'<svg xmlns="http://www.w3.org/2000/svg" xmlns:\
-            xlink="http://www.w3.org/1999/xlink"' in r.content)
+            b'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"' in r.content)
         
         

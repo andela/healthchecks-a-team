@@ -51,8 +51,7 @@ class ListChecksTestCase(BaseTestCase):
         self.assertTrue(
             r['ping_url'] == "http://localhost:8000/ping/" + str(self.a1.code))
         self.assertTrue(
-            r['pause_url'] == "http://localhost:8000/api/v1/checks/\
-            " + str(self.a1.code) + "/pause")
+            r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a1.code) + "/pause")
 
         self.assertTrue(self.a2.timeout == td(seconds=86400))
         self.assertTrue(self.a2.grace == td(seconds=3600))
@@ -62,8 +61,7 @@ class ListChecksTestCase(BaseTestCase):
         self.assertTrue(
             r['ping_url'] == "http://localhost:8000/ping/" + str(self.a2.code))
         self.assertTrue(
-            r['pause_url'] == "http://localhost:8000/api/v1/checks/\
-            " + str(self.a2.code) + "/pause")
+            r['pause_url'] == "http://localhost:8000/api/v1/checks/" + str(self.a2.code) + "/pause")
 
     def test_it_shows_only_users_checks(self):
         bobs_check = Check(user=self.bob, name="Bob 1")
