@@ -125,7 +125,7 @@ class CreateCheckTestCase(BaseTestCase):
         for channel in check.channel_set.all():
             # this assert checks that the codes in the channel set
             # matched the keys in the channels we created up there
-            assert channel.code in channels
+            self.assertTrue(channel.code in channels)
 
     
     ### Test for the 'timeout is too small' and 'timeout is too large' errors
