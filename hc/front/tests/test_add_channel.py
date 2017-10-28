@@ -40,7 +40,8 @@ class AddChannelTestCase(BaseTestCase):
     def test_bad_kinds_do_not_work(self):
         # Test that bad kinds don't work
         self.client.login(username="alice@example.org", password="password")
-        url = "/integrations/add_not/"
+        kinds = "bad_kind"
+        url = "/integrations/add_%s/" % kinds
         r = self.client.get(url)
         self.assertEqual(404, r.status_code)
 
