@@ -3,19 +3,18 @@ from hc.test import BaseTestCase
 
 
 class AddCheckTestCase(BaseTestCase):
-    def setUp(self):
-        super(AddCheckTestCase, self).setUp()
-        self.url = "/checks/add/"
-        self.client.login(username="alice@example.org", password="password")
-
     def test_it_works(self):
-        r = self.client.post(self.url)
+        url = "/checks/add/"
+        self.client.login(username="alice@example.org", password="password")
+        r = self.client.post(url)
         self.assertRedirects(r, "/checks/")
         assert Check.objects.count() == 1
 
     def test_team_access_works(self):
         # Test that team access works
-        self.client.post(self.url)
+        self.client.login(username="alice@example.org", password="password")
+        url = "/checks/add/"
+        self.client.post(url)
         self.check = Check.objects.filter(user=self.alice)
         check_code = self.check.first().code
         self.client.logout()
