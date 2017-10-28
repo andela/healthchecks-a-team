@@ -3,6 +3,9 @@ from hc.test import BaseTestCase
 
 
 class CheckTokenTestCase(BaseTestCase):
+    """
+    This class represents the token test case
+    """
 
     def setUp(self):
         super(CheckTokenTestCase, self).setUp()
@@ -10,25 +13,34 @@ class CheckTokenTestCase(BaseTestCase):
         self.profile.save()
 
     def test_it_shows_form(self):
-        r = self.client.get("/accounts/check_token/alice/secret-token/")
-        self.assertContains(r, "You are about to log in")
+        """
+        Test a form is shown
+        """
+        res = self.client.get("/accounts/check_token/alice/secret-token/")
+        self.assertContains(res, "You are about to log in")
 
     def test_it_redirects(self):
-        r = self.client.post("/accounts/check_token/alice/secret-token/")
-        self.assertRedirects(r, "/checks/")
+        """
+        Test a user with a token is redirected
+        """
+        res = self.client.post("/accounts/check_token/alice/secret-token/")
+        self.assertRedirects(res, "/checks/")
 
         # After login, token should be blank
         self.profile.refresh_from_db()
         self.assertEqual(self.profile.token, "")
 
-    ### Login and test it redirects already logged in
     def test_it_redirects_already_logged_in(self):
+        """
+        Test a logged in user is redirected
+        """
         form = {"email": self.alice.email, "password": "password"}
-        r = self.client.post("/accounts/login/", form)
-        self.assertRedirects(r, "/checks/")
+        res = self.client.post("/accounts/login/", form)
+        self.assertRedirects(res, "/checks/")
 
-    ### Login with a bad token and check that it redirects
     def test_login_with_bad_token(self):
-        r = self.client.post("/accounts/check_token/alice/bad-token/")
-        self.assertRedirects(r, "/accounts/login/")
-
+        """
+        Test a user with a bad token is redirected to login
+        """
+        res = self.client.post("/accounts/check_token/alice/bad-token/")
+        self.assertRedirects(res, "/accounts/login/")
