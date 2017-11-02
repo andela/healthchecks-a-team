@@ -15,6 +15,7 @@ class EmailPasswordForm(forms.Form):
 
 class ReportSettingsForm(forms.Form):
     reports_allowed = forms.BooleanField(required=False)
+    Unsubscribe = forms.BooleanField(required=False)
     Daily = forms.IntegerField(required=False)
     Weekly = forms.IntegerField(required=False)
     Monthly = forms.IntegerField(required=False)
