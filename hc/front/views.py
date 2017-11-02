@@ -47,6 +47,7 @@ def my_checks(request):
             elif check.in_grace_period():
                 grace_tags.add(tag)
 
+
     ctx = {
         "page": "checks",
         "checks": checks,
@@ -65,7 +66,7 @@ def my_failed_checks(request):
     checks = list(q)
 
     counter = Counter()
-    down_tags, grace_tags = set(), set()
+    down_tags= set(),
     for check in checks:
         status = check.get_status()
         for tag in check.tags_list():
@@ -86,7 +87,7 @@ def my_failed_checks(request):
         "ping_endpoint": settings.PING_ENDPOINT
     }
 
-    return render(request, "front/my_checks.html", ctx)
+    return render(request, "front/my_failed_checks.html", ctx)
 
 
 def _welcome_check(request):
