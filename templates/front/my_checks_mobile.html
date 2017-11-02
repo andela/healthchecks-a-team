@@ -47,6 +47,15 @@
             </tr>
             {% endif %}
             <tr>
+                <th>Nag Mode</th>
+                <td>
+                    <div class="material-switch" data-uuid="{{ check.code  }}">
+                        <input id="someSwitchOptionSuccess{{ check.code  }}" name="someSwitchOption001" type="checkbox" {% if check.nag_mode == True %} checked="checked" {% endif %} />
+                        <label for="someSwitchOptionSuccess{{ check.code  }}" class="label-success"></label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <th>Period</th>
                 <td>{{ check.timeout|hc_duration }}</td>
             </tr>
