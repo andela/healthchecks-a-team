@@ -156,7 +156,15 @@ def profile(request):
         elif "update_reports_allowed" in request.POST:
             form = ReportSettingsForm(request.POST)
             if form.is_valid():
-                profile.reports_allowed = form.cleaned_data["reports_allowed"]
+                days = form.cleaned_data.get("Daily")\
+                       or form.cleaned_data.get("Weekly") or form.cleaned_data.get("Monthly") \
+                       or form.cleaned_data.get("Unsubscribe")
+                if days:
+                    profile.days = days
+                    profile.reports_allowed = True
+                else:
+                    profile.reports_allowed = False
+                    profile.days = 0
                 profile.save()
                 messages.success(request, "Your settings have been updated!")
         elif "invite_team_member" in request.POST:
@@ -177,7 +185,6 @@ def profile(request):
         elif "remove_team_member" in request.POST:
             form = RemoveTeamMemberForm(request.POST)
             if form.is_valid():
-
                 email = form.cleaned_data["email"]
                 farewell_user = User.objects.get(email=email)
                 farewell_user.profile.current_team = None

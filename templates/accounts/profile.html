@@ -31,7 +31,7 @@ function setValue(val){
 <div class="row">
     <div class="col-sm-6">
         <div class="panel panel-default">
-            <div class="panel-body settings-block">
+            <div class="panel-body settings-block" id="report_settings">
                 <form method="post">
                     {% csrf_token %}
                     {% for period, value in profile.periods.items %}
@@ -44,8 +44,12 @@ function setValue(val){
                                 id="{{ value }}status"
                                 onclick="setValue({{ value }})"
                                 type="radio"
+                                {% if not profile.reports_allowed %} checked {% endif %}
                                 {% if profile.reports_allowed and profile.days == value %} checked {% endif %}>
-                        Send me a summary of my checks {{ period }}
+                        {% if value %}
+                        Send me a summary of my checks
+                        {% endif %}
+                        {{ period }}
                     </label>
                     {% endfor %}
                     <button
