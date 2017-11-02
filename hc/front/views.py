@@ -62,28 +62,19 @@ def my_checks(request):
 
 @login_required
 def my_failed_checks(request):
-    q = Check.objects.filter(user=request.team.user, status="down").order_by("created")
+    q = Check.objects.filter(user=request.team.user).order_by("created").all()
     checks = list(q)
 
-    counter = Counter()
-    down_tags= set(),
+    unresolved = []
     for check in checks:
         status = check.get_status()
-        for tag in check.tags_list():
-            if tag == "":
-                continue
-
-            counter[tag] += 1
-
-            if status == "down":
-                down_tags.add(tag)
+        if status == "down":
+            unresolved.append(check)
 
     ctx = {
         "page": "checks_failed",
-        "checks": checks,
+        "checks": unresolved,
         "now": timezone.now(),
-        "tags": counter.most_common(),
-        "down_tags": down_tags,
         "ping_endpoint": settings.PING_ENDPOINT
     }
 
