@@ -29,7 +29,7 @@ def pairwise(iterable):
 
 @login_required
 def my_checks(request):
-    q = Check.objects.filter(user=request.team.user).order_by("created")
+    q = Check.objects.filter(user=request.team.user ).order_by("created")
     checks = list(q)
 
     counter = Counter()
@@ -62,7 +62,7 @@ def my_checks(request):
 
 @login_required
 def my_failed_checks(request):
-    q = Check.objects.filter(user=request.team.user).order_by("created")
+    q = Check.objects.filter(user=request.team.user, status="down").order_by("created")
     checks = list(q)
 
     counter = Counter()
