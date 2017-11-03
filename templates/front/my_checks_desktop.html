@@ -52,10 +52,7 @@
             </button>
         </td>
         <td>
-            <div class="material-switch" style="width: 50%; margin: auto !important;" data-uuid="{{ check.code  }}">
-                <input id="someSwitchOptionSuccess{{ check.code  }}" name="someSwitchOption001" type="checkbox" {% if check.nag_mode == True %} checked="checked" {% endif %} />
-                <label for="someSwitchOptionSuccess{{ check.code  }}" class="label-success"></label>
-            </div>
+            <div class="nag-mode {% if check.get_status == 'down' %} blink_me {% else %} safe-mode {% endif %}"></div>
         </td>
         <td class="timeout-cell">
             <span
