@@ -68,7 +68,8 @@ class Profile(models.Model):
         ctx = {
             "checks": self.user.check_set.order_by("created"),
             "now": now,
-            "unsub_link": unsub_link
+            "unsub_link": unsub_link,
+            "period": [x for x in self.periods if self.periods[x] == self.days][0].lower()
         }
 
         emails.report(self.user.email, ctx)
