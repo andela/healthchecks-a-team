@@ -68,6 +68,15 @@ class ProfileTestCase(BaseTestCase):
         # Assert that daily is in email body
         self.assertIn("daily", mail.outbox[0].body)
 
+    def test_it_sends_monthly_report_by_default(self):
+        check = Check(name="Test Check", user=self.alice)
+        check.save()
+        self.alice.profile.reports_allowed = True
+        self.alice.profile.send_report()
+
+        # Assert that monthly is in email body
+        self.assertIn("monthly", mail.outbox[0].body)
+
     def test_it_adds_team_member(self):
         """
         Test a member can be added to a team
