@@ -9,14 +9,14 @@ from hc.api.models import Check
 
 
 def num_pinged_checks(profile):
-    q = Check.objects.filter(user_id=profile.user.id,)
+    q = Check.objects.filter(user_id=profile.user.id, )
     q = q.filter(last_ping__isnull=False)
     return q.count()
 
 
 class Command(BaseCommand):
     help = 'Send due monthly reports'
-    tmpl = "Sending monthly report to %s"
+    tmpl = "Sending Report to %s"
 
     def add_arguments(self, parser):
         parser.add_argument(
