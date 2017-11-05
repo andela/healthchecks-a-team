@@ -44,9 +44,38 @@ class ProfileTestCase(BaseTestCase):
 
         ###Assert that the email was sent and check email content
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual("Monthly Report", mail.outbox[0].subject)
+        self.assertEqual("monthly Report", mail.outbox[0].subject)
         self.assertIn("This is a monthly report sent by healthchecks.io",
                       mail.outbox[0].body)
+
+    def test_it_sends_weekly_report(self):
+        check = Check(name="Test Check", user=self.alice)
+        check.save()
+        self.alice.profile.days = 7
+        self.alice.profile.reports_allowed = True
+        self.alice.profile.send_report()
+
+        # Assert that weekly is in email body
+        self.assertIn("weekly", mail.outbox[0].body)
+
+    def test_it_sends_daily_report(self):
+        check = Check(name="Test Check", user=self.alice)
+        check.save()
+        self.alice.profile.days = 1
+        self.alice.profile.reports_allowed = True
+        self.alice.profile.send_report()
+
+        # Assert that daily is in email body
+        self.assertIn("daily", mail.outbox[0].body)
+
+    def test_it_sends_monthly_report_by_default(self):
+        check = Check(name="Test Check", user=self.alice)
+        check.save()
+        self.alice.profile.reports_allowed = True
+        self.alice.profile.send_report()
+
+        # Assert that monthly is in email body
+        self.assertIn("monthly", mail.outbox[0].body)
 
     def test_it_adds_team_member(self):
         """
