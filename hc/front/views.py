@@ -47,6 +47,7 @@ def my_checks(request):
             elif check.in_grace_period():
                 grace_tags.add(tag)
 
+
     ctx = {
         "page": "checks",
         "checks": checks,
@@ -58,6 +59,26 @@ def my_checks(request):
     }
 
     return render(request, "front/my_checks.html", ctx)
+
+@login_required
+def my_failed_checks(request):
+    q = Check.objects.filter(user=request.team.user).order_by("created").all()
+    checks = list(q)
+
+    unresolved = []
+    for check in checks:
+        status = check.get_status()
+        if status == "down":
+            unresolved.append(check)
+
+    ctx = {
+        "page": "checks_failed",
+        "checks": unresolved,
+        "now": timezone.now(),
+        "ping_endpoint": settings.PING_ENDPOINT
+    }
+
+    return render(request, "front/my_failed_checks.html", ctx)
 
 
 def _welcome_check(request):
