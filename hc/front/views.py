@@ -29,14 +29,11 @@ def pairwise(iterable):
 
 @login_required
 def my_reports(request):
-    q = Check.objects.filter(user_id=request.user.id, )
-    q = q.filter(last_ping__isnull=False)
-    if q.count() > 0:
-        #
-        ctx = {
-            "checks": request.user.check_set.order_by("created")
-        }
-        return render(request, "front/my_reports.html", ctx)
+    #
+    ctx = {
+         "checks": request.user.check_set.order_by("created")
+    }
+    return render(request, "front/my_reports.html", ctx)
 
 
 @login_required
