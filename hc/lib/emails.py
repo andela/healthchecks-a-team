@@ -1,15 +1,13 @@
 from django.conf import settings
-from djmail.template_mail import InlineCSSTemplateMail
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+
 def send(name, to, ctx):
-    # o = InlineCSSTemplateMail(name)
-    # o.send(to, ctx)
     ctx["SITE_ROOT"] = settings.SITE_ROOT
-    html = render_to_string('emails/'+str(name)+'-body-html.html', ctx)
-    subject = render_to_string('emails/'+str(name)+'-subject.html', ctx)
-    text = render_to_string('emails/'+str(name)+'-body-text.html', ctx)
+    html = render_to_string('emails/' + str(name) + '-body-html.html', ctx)
+    subject = render_to_string('emails/' + str(name) + '-subject.html', ctx)
+    text = render_to_string('emails/' + str(name) + '-body-text.html', ctx)
 
     send_mail(
         subject=subject.strip(),
