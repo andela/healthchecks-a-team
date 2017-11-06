@@ -313,21 +313,3 @@
 <script src="{% static 'js/checks.js' %}"></script>
 {% endcompress %}
 {% endblock %}
-
-{% block scripts_custom %}
-<script>
-
-    $(document).ready(function(){
-
-        $(document).on("change", ".material-switch", function(){
-            
-            //make call to endpoint to store inverse i.e. if true is found make it false
-            $.post("/checks/nag-mode/"+$(this).attr("data-uuid"), { csrfmiddlewaretoken: "{{ csrf_token }}"}, function(data, status){
-                console.log(data)
-            })
-
-        });
-    });
-
-</script>
-{% endblock %}

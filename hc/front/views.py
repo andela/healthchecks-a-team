@@ -61,23 +61,6 @@ def my_checks(request):
     return render(request, "front/my_checks.html", ctx)
 
 
-def alternate_nag_checks(request, id):
-    
-    try:
-        check = Check.objects.get(code=id)
-    except Check.DoesNotExist:
-        return HttpResponseBadRequest()
-
-    if check.nag_mode:
-        check.nag_mode = False
-    else:
-        check.nag_mode = True
-
-    check.save()
-
-    return JsonResponse({"success": "Update Successful"})
-
-
 def _welcome_check(request):
     check = None
     if "welcome_code" in request.session:
