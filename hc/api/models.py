@@ -95,6 +95,19 @@ class Check(models.Model):
 
         return "down"
 
+    def get_nag_time(self):
+
+        now = timezone.now()
+
+        if self.status == "down" and self.alert_after <= now:
+            if self.nag_time:
+                return self.nag_time + self.nag_interval
+            else:
+                return self.last_ping + self.nag_interval +\
+                    self.timeout + self.grace
+
+        return None
+
     def in_grace_period(self):
         if self.status in ("new", "paused"):
             return False

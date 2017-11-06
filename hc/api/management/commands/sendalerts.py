@@ -46,9 +46,10 @@ class Command(BaseCommand):
 
         """
 
-        # Save the new status. If sendalerts crashes,
+        # Save the new status and updated nag time. If sendalerts crashes,
         # it won't process this check again.
         check.status = check.get_status()
+        check.nag_time = check.get_nag_time()
         check.save()
 
         tmpl = "\nSending alert, status=%s, code=%s\n"
