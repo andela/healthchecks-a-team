@@ -8,7 +8,8 @@
         <th>Nag Mode</th>
         <th class="th-period">
             Period <br />
-            <span class="checks-subline">Grace</span>
+            <span class="checks-subline">Grace</span><br />
+            <span class="checks-subline">Nag Interval</span>
         </th>
         <th>Last Ping</th>
         <th></th>
@@ -64,6 +65,10 @@
                 <br />
                 <span class="checks-subline">
                 {{ check.grace|hc_duration }}
+                </span>
+                <br />
+                <span class="checks-subline">
+                {{ check.nag_interval|hc_duration }}
                 </span>
             </span>
         </td>
