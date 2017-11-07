@@ -134,6 +134,16 @@
             <p>A messaging app for teams.</p>
             <a href="{% url 'hc-add-slack' %}" class="btn btn-primary">Add Integration</a>
         </li>
+
+        {% if enable_sms %}
+        <li>
+            <img src="{% static 'img/integrations/message.svg' %}"
+                class="icon" alt="Sms icon" />
+            <h2>Sms</h2>
+            <p>Send text messages to all your teammates.</p>
+            <a href="{% url 'hc-add-sms' %}" class="btn btn-primary">Add Integration</a>
+        </li>
+        {% endif %}
         <li>
             <img src="{% static 'img/integrations/email.png' %}"
                 class="icon" alt="Email icon" />
