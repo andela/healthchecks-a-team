@@ -3,6 +3,8 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 import json
 import requests
+# Import the helper gateway class
+from .AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException
 from six.moves.urllib.parse import quote
 
 from hc.lib import emails
@@ -216,3 +218,52 @@ class VictorOps(HttpTransport):
         }
 
         return self.post(self.channel.value, payload)
+
+class Sms(HttpTransport):
+    def notify(self, check):
+        text = tmpl("alert-sms-body-text.html", check=check)
+        payload = json.loads(text)
+        # Specify your login credentials
+        username = "sandbox"
+        apikey   = "f91a7aee1d06c4dfffa6190f15d2926c0b22e9f24e92446ae91300e07f203e6d"
+        # Specify the numbers that you want to send to in a comma-separated list
+        # Please ensure you include the country code (+254 for Kenya)
+        to      = "+" + self.channel.value
+        # And of course we want our recipients to know what we really do
+        message = text
+        # Create a new instance of our awesome gateway class
+        gateway = AfricasTalkingGateway(username, apikey)
+
+        try:
+            # Thats it, hit send and we'll take care of the rest.
+            
+            results = gateway.sendMessage(to, message)
+            
+            for recipient in results:
+                # status is either "Success" or "error message"
+                print ('number=%s;status=%s;messageId=%s;cost=%s' % (recipient['number'],
+                                                                    recipient['status'],
+                                                                    recipient['messageId'],
+                                                                    recipient['cost']))
+        except (AfricasTalkingGatewayException, e):
+            print ('Encountered an error while sending: %s' % str(e))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
