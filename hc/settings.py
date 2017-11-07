@@ -166,7 +166,8 @@ PUSHOVER_EMERGENCY_RETRY_DELAY = 300
 PUSHOVER_EMERGENCY_EXPIRATION = 86400
 
 # Sms integration
-SMS_API_TOKEN = "f91a7aee1d06c4dfffa6190f15d2926c0b22e9f24e92446ae91300e07f203e6d"
+SMS_API_USERNAME = "muthomimate"
+SMS_API_TOKEN = "4cefb4bcf9d1e7d777ba22bdd184443dd22c6b385eb51614b5fea6e1093bec2b"
 
 # Pushbullet integration -- override these in local_settings
 PUSHBULLET_CLIENT_ID = None
