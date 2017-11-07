@@ -83,15 +83,12 @@
                 </li>
 
                 <li {% if page == 'channels' %} class="active" {% endif %}>
-                <a href="{% url 'hc-channels' %}">Integrations</a>
+                    <a href="{% url 'hc-channels' %}">Integrations</a>
                 </li>
-                    <li {% if page == 'channels' %} class="active" {% endif %}>
-                        <a href="{% url 'hc-channels' %}">Integrations</a>
-                    </li>
-                    <li{% if page == 'checks_failed' %} class ="active"{% endif %}>
-                        <a href="{% url 'failed_checks' %}">Unresolved</a>
-                    
-                    </li>
+                <li{% if page == 'checks_failed' %} class ="active"{% endif %}>
+                    <a href="{% url 'failed_checks' %}">Unresolved</a>
+                
+                </li>
                 {% endif %}
 
 
