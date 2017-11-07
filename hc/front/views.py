@@ -316,7 +316,8 @@ def channels(request):
         "channels": channels,
         "num_checks": num_checks,
         "enable_pushbullet": settings.PUSHBULLET_CLIENT_ID is not None,
-        "enable_pushover": settings.PUSHOVER_API_TOKEN is not None
+        "enable_pushover": settings.PUSHOVER_API_TOKEN is not None,
+        "enable_sms": settings.SMS_API_TOKEN is not None
     }
     return render(request, "front/channels.html", ctx)
 
@@ -428,6 +429,17 @@ def add_slack(request):
         "slack_client_id": settings.SLACK_CLIENT_ID
     }
     return render(request, "integrations/add_slack.html", ctx)
+
+@login_required
+def add_sms(request):
+    if not settings.SMS_API_TOKEN and not request.user.is_authenticated:
+        return redirect("hc-login")
+
+    ctx = {
+        "page": "channels",
+        "sms_api_token": settings.SMS_API_TOKEN
+    }
+    return render(request, "integrations/add_sms.html", ctx)
 
 
 @login_required
