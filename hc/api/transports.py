@@ -6,7 +6,7 @@ import requests
 # Import the helper gateway class
 from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
 from six.moves.urllib.parse import quote
-
+import tweepy
 from hc.lib import emails
 
 
@@ -248,24 +248,22 @@ class Sms(HttpTransport):
                                                                     recipient['cost']))
         except AfricasTalkingGatewayException as e:
             print ('Encountered an error while sending: %s' % str(e))
-            
 
 
+class Twitter(HttpTransport):
+    def notify(self, check):
+        text = tmpl("alert-twitter-body-text.html", check=check, value=self.channel.value, time=timezone.now())
 
+        cfg = { 
+            "consumer_key": settings.TWITTER_CONSUMER_KEY,
+            "consumer_secret": settings.TWITTER_CONSUMER_SECRET,
+            "access_token": settings.TWITTER_ACCESS_TOKEN,
+            "access_token_secret": settings.TWITTER_ACCESS_TOKEN_SECRET
+        }
 
+        auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
+        auth.set_access_token(cfg['access_token'], cfg['access_token_secret'])
+        api = tweepy.API(auth)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        tweet = text
+        status = api.update_status(status=tweet)
