@@ -8,7 +8,7 @@ from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, Africas
 from six.moves.urllib.parse import quote
 import tweepy
 from hc.lib import emails
-
+from telethon import TelegramClient
 
 def tmpl(template_name, **ctx):
     template_path = "integrations/%s" % template_name
@@ -267,3 +267,24 @@ class Twitter(HttpTransport):
 
         tweet = text
         status = api.update_status(status=tweet)
+
+
+class Telegram(HttpTransport):
+    def notify(self, check):
+
+        text = tmpl("alert-sms-body-text.html", check=check)
+
+        api_id = settings.TELEGRAM_API_ID
+        api_hash = settings.TELEGRAM_API_HASH
+        phone = settings.TELEGRAM_PHONE_NUMBER
+        try:
+            client = TelegramClient('session_namee', api_id, api_hash)
+            client.connect()
+            # client.sign_in(phone=phone)
+            # code = input()
+            # me = client.sign_in(code=code)
+            client.send_message(self.channel.value, text)
+            print("suceess")
+        except:
+            print("fail")
+            pass
