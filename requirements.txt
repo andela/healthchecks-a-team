@@ -24,12 +24,16 @@ oauthlib==2.0.6
 pbr==3.1.1
 premailer==2.9.6
 psycopg2>=2.6.2
+pyaes==1.6.1
+pyasn1==0.3.7
 pylint==1.7.4
 rcssmin==1.0.6
 requests==2.18.4
 requests-oauthlib==0.8.0
 rjsmin==1.0.12
+rsa==3.4.2
 six==1.11.0
+Telethon==0.15.4.2
 tweepy==3.5.0
 urllib3==1.22
 whitenoise==3.3.1
