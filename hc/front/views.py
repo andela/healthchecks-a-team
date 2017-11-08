@@ -441,6 +441,28 @@ def add_sms(request):
     }
     return render(request, "integrations/add_sms.html", ctx)
 
+@login_required
+def add_twitter(request):
+    if not settings.SMS_API_TOKEN and not request.user.is_authenticated:
+        return redirect("hc-login")
+
+    ctx = {
+        "page": "channels",
+        "sms_api_token": settings.SMS_API_TOKEN
+    }
+    return render(request, "integrations/add_twitter.html", ctx)
+
+@login_required
+def add_telegram(request):
+    if not settings.SMS_API_TOKEN and not request.user.is_authenticated:
+        return redirect("hc-login")
+
+    ctx = {
+        "page": "channels",
+        "sms_api_token": settings.SMS_API_TOKEN
+    }
+    return render(request, "integrations/add_telegram.html", ctx)
+
 
 @login_required
 def add_slack_btn(request):
