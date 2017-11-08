@@ -153,6 +153,7 @@
 
             <a href="{% url 'hc-add-email' %}" class="btn btn-primary">Add Integration</a>
         </li>
+        {% if enable_twitter %}
         <li>
             <img src="{% static 'img/integrations/tweet.png' %}"
                 class="icon" alt="Twitter icon" />
@@ -162,6 +163,7 @@
 
             <a href="{% url 'hc-add-twitter' %}" class="btn btn-primary">Add Integration</a>
         </li>
+        {% endif %}
         <li>
             <img src="{% static 'img/integrations/Bokehlicia-Captiva-Web-telegram.png' %}"
                 class="icon" alt="Telegram icon" />
