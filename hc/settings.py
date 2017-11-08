@@ -176,6 +176,11 @@ TWITTER_ACCESS_TOKEN = "417824050-1F0pbBtLQbTtK0hfx5WQhLdxyZ7kmawlm8mdd6Rt"
 TWITTER_ACCESS_TOKEN_SECRET = "Dj9Uq9EqhQSQLMsNq9ZvQeo5EmM9p2rtze3LRJx2fTsAi"
 
 
+# telegram integrations
+TELEGRAM_API_ID = 134187
+TELEGRAM_API_HASH = "580bd6cb7ee0468137dc839bc45f8d4a"
+TELEGRAM_PHONE_NUMBER = "254xxxxxxxxx"
+
 # Pushbullet integration -- override these in local_settings
 PUSHBULLET_CLIENT_ID = None
 PUSHBULLET_CLIENT_SECRET = None
