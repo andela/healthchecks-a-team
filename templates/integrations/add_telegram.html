@@ -17,15 +17,14 @@
         {% csrf_token %}
         <input type="hidden" name="kind" value="telegram" />
         <div class="form-group">
-            <label for="id_email" class="col-sm-2 control-label">Phone Number</label>
+            <label for="id_email" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-3">
                 <input
                     id="id_email"
-                    type="tel"
+                    type="text"
                     class="form-control"
-                    pattern="^\d{12}$"
                     name="value"
-                    placeholder="254xxxxxxxxx">
+                    placeholder="myusername">
             </div>
         </div>
         <div class="form-group">
