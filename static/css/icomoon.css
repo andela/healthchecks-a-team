@@ -45,6 +45,12 @@
 .icon-grace:before {
   content: "\e000";
 }
+.icon-down:before {
+  content: "\e7f8";
+}
+.icon-often:before {
+  content: "\002604";
+}
 .icon-missing:before {
   content: "\e001";
 }
