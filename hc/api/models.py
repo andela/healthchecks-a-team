@@ -87,7 +87,7 @@ class Check(models.Model):
             return self.status
 
         now = timezone.now()
-        if self.often:
+        if self.often and ((now - self.last_ping) < (self.timeout + self.grace)):
             return "often"
 
         if self.last_ping + self.timeout + self.grace > now:
