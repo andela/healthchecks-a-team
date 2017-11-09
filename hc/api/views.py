@@ -26,10 +26,13 @@ def ping(request, code):
         # To cater for the edge cases where timeout and grace time are equal
         if (check.timeout == check.grace) and (timezone.now() - check.last_ping) < check.timeout:
             check.often = True
+            check.send_often_alert()
         elif check.last_ping < timezone.now() and (check.last_ping + check.timeout - check.grace) > timezone.now():
             check.often = True
+            check.send_often_alert()
         else:
             check.often = False
+
     check.last_ping = timezone.now()
     if check.status in ("new", "paused"):
         check.status = "up"
@@ -115,7 +118,7 @@ def badge(request, username, signature, tag):
         if status == "up" and check.in_grace_period():
             status = "late"
 
-        if status == 'up':
+        if check.get_status == 'up':
             status = "often"
 
         if check.get_status() == "down":
