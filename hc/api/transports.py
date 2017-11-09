@@ -4,11 +4,18 @@ from django.utils import timezone
 import json
 import requests
 # Import the helper gateway class
-from africastalking.AfricasTalkingGateway import (AfricasTalkingGateway, AfricasTalkingGatewayException)
+from africastalking.AfricasTalkingGateway import (
+    AfricasTalkingGateway, AfricasTalkingGatewayException)
 from six.moves.urllib.parse import quote
 import tweepy
 from hc.lib import emails
-from telethon import TelegramClient
+
+# Check compatibility
+try:
+    from telethon import TelegramClient
+except SyntaxError:
+    pass
+
 
 def tmpl(template_name, **ctx):
     template_path = "integrations/%s" % template_name
