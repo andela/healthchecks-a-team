@@ -24,10 +24,12 @@ def ping(request, code):
     check.n_pings = F("n_pings") + 1
     if check.last_ping:
         # To cater for the edge cases where timeout and grace time are equal
-        if (check.timeout == check.grace) and (timezone.now() - check.last_ping) < check.timeout:
+        if (check.timeout == check.grace) and \
+                        (timezone.now() - check.last_ping) < check.timeout:
             check.often = True
             check.send_often_alert()
-        elif check.last_ping < timezone.now() and (check.last_ping + check.timeout - check.grace) > timezone.now():
+        elif check.last_ping < timezone.now() and \
+                        (check.last_ping + check.timeout - check.grace) > timezone.now():
             check.often = True
             check.send_often_alert()
         else:
