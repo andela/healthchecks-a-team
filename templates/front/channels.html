@@ -46,6 +46,17 @@
                 {% elif ch.kind == "pd" %}
                     <span class="preposition">API key</span>
                     {{ ch.value }}
+
+                {% elif ch.kind == "sms" %}
+                    <span class="preposition">to +</span>
+                    {{ ch.value }}
+                {% elif ch.kind == "twitter" %}
+                    <span class="preposition">to @</span>
+                    {{ ch.value }}
+                {% elif ch.kind == "telegram" %}
+                    <span class="preposition">to @</span>
+                    {{ ch.value }}
+                
                 {% elif ch.kind == "victorops" %}
                     <span class="preposition">Post URL</span>
                     {{ ch.value }}
