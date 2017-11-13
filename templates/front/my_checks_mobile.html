@@ -47,22 +47,12 @@
             </tr>
             {% endif %}
             <tr>
-                <th>Nag Mode</th>
-                <td>
-                    <div class="nag-mode {% if check.get_status == 'down' %} blink_me {% else %} safe-mode {% endif %}" style="margin:0"></div>
-                </td>
-            </tr>
-            <tr>
                 <th>Period</th>
                 <td>{{ check.timeout|hc_duration }}</td>
             </tr>
             <tr>
                 <th>Grace Time</th>
                 <td>{{ check.grace|hc_duration }}</td>
-            </tr>
-            <tr>
-                <th>Nag Interval</th>
-                <td>{{ check.nag_interval|hc_duration }}</td>
             </tr>
             <tr>
                 <th>Last Ping</th>
@@ -92,7 +82,6 @@
                 data-url="{% url 'hc-update-timeout' check.code %}"
                 data-timeout="{{ check.timeout.total_seconds }}"
                 data-grace="{{ check.grace.total_seconds }}"
-                data-nag="{{ check.nag_interval.total_seconds }}"
                 class="btn btn-default timeout-grace">Change Period</a>
 
             <a href="{% url 'hc-log' check.code %}" class="btn btn-default">Log</a>

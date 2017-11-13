@@ -1,15 +1,12 @@
 {% load hc_extras humanize %}
-
 <table id="checks-table" class="table hidden-xs">
     <tr>
         <th></th>
         <th class="th-name">Name</th>
         <th>Ping URL</th>
-        <th>Nag Mode</th>
         <th class="th-period">
             Period <br />
-            <span class="checks-subline">Grace</span><br />
-            <span class="checks-subline">Nag Interval</span>
+            <span class="checks-subline">Grace</span>
         </th>
         <th>Last Ping</th>
         <th></th>
@@ -52,24 +49,16 @@
                 copy
             </button>
         </td>
-        <td>
-            <div class="nag-mode {% if check.get_status == 'down' %} blink_me {% else %} safe-mode {% endif %}"></div>
-        </td>
         <td class="timeout-cell">
             <span
                 data-url="{% url 'hc-update-timeout' check.code %}"
                 data-timeout="{{ check.timeout.total_seconds }}"
                 data-grace="{{ check.grace.total_seconds }}"
-                data-nag="{{ check.nag_interval.total_seconds }}"
                 class="timeout-grace">
                 {{ check.timeout|hc_duration }}
                 <br />
                 <span class="checks-subline">
                 {{ check.grace|hc_duration }}
-                </span>
-                <br />
-                <span class="checks-subline">
-                {{ check.nag_interval|hc_duration }}
                 </span>
             </span>
         </td>

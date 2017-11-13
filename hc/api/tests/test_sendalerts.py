@@ -21,14 +21,13 @@ class SendAlertsTestCase(BaseTestCase):
             check.save()
 
         result = Command().handle_many()
-        # assert result, "handle_many should return True"
-        self.assertTrue(result)
+        assert result, "handle_many should return True"
 
         handled_names = []
         for args, kwargs in mock.call_args_list:
             handled_names.append(args[0].name)
 
-        self.assertTrue(set(names) == set(handled_names))
+        assert set(names) == set(handled_names)
         ### The above assert fails. Make it pass
 
     def test_it_handles_grace_period(self):
@@ -38,24 +37,6 @@ class SendAlertsTestCase(BaseTestCase):
         check.save()
 
         # Expect no exceptions--
-        result = Command().handle_one(check)
-        self.assertTrue(result)
+        Command().handle_one(check)
 
-
-    ### Assert when Command's handle many that when handle_many should 
-    # return True
-    
-    # handle many test re-written to handle the 'going down' condition
-    @patch("hc.api.management.commands.sendalerts.Command.handle_one")
-    def test_it_handles_checks_that_are_going_down(self, mock):
-        tomorrow = timezone.now() + timedelta(days=1)
-        names = ["Check %d" % d for d in range(0, 10)]
-
-        for name in names:
-            check = Check(user=self.alice, name=name)
-            check.alert_after = tomorrow
-            check.status = "down"
-            check.save()
-
-        result = Command().handle_many()
-        self.assertTrue(result, "handle_many should return True")
+    ### Assert when Command's handle many that when handle_many should return True

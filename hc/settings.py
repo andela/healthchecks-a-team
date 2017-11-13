@@ -12,20 +12,15 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 import os
 import warnings
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 HOST = "localhost"
 SECRET_KEY = "---"
 DEBUG = True
-#DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 DEFAULT_FROM_EMAIL = 'healthchecks@example.org'
 USE_PAYMENTS = False
-
-
-
 
 
 INSTALLED_APPS = (
@@ -93,17 +88,8 @@ DATABASES = {
     }
 }
 
-# Check If App Is On Heroku
-if os.environ.get('DATABASE_URL'):
-    db_from_env  = dj_database_url.config()
-    DATABASES['default'].update(db_from_env)
-    DATABASES['default']['CONN_MAX_AGE'] = 400
-    STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-
 # You can switch database engine to postgres or mysql using environment
 # variable 'DB'. Travis CI does this.
-
 if os.environ.get("DB") == "postgres":
     DATABASES = {
         'default': {
@@ -147,7 +133,7 @@ STATICFILES_FINDERS = (
 )
 COMPRESS_OFFLINE = True
 
-
+EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 # Slack integration -- override these in local_settings
 SLACK_CLIENT_ID = None
