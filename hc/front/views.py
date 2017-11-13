@@ -3,11 +3,12 @@ from datetime import timedelta as td
 from itertools import tee
 
 import requests
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
-from django.http import Http404, HttpResponseBadRequest, HttpResponseForbidden
+from django.http import Http404, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -25,6 +26,15 @@ def pairwise(iterable):
     a, b = tee(iterable)
     next(b, None)
     return zip(a, b)
+
+
+@login_required
+def my_reports(request):
+    #
+    ctx = {
+         "checks": request.user.check_set.order_by("created")
+    }
+    return render(request, "front/my_reports.html", ctx)
 
 
 @login_required
@@ -47,6 +57,7 @@ def my_checks(request):
             elif check.in_grace_period():
                 grace_tags.add(tag)
 
+
     ctx = {
         "page": "checks",
         "checks": checks,
@@ -58,6 +69,26 @@ def my_checks(request):
     }
 
     return render(request, "front/my_checks.html", ctx)
+
+@login_required
+def my_failed_checks(request):
+    q = Check.objects.filter(user=request.team.user).order_by("created").all()
+    checks = list(q)
+
+    unresolved = []
+    for check in checks:
+        status = check.get_status()
+        if status == "down":
+            unresolved.append(check)
+
+    ctx = {
+        "page": "checks_failed",
+        "checks": unresolved,
+        "now": timezone.now(),
+        "ping_endpoint": settings.PING_ENDPOINT
+    }
+
+    return render(request, "front/my_failed_checks.html", ctx)
 
 
 def _welcome_check(request):
@@ -164,6 +195,7 @@ def update_timeout(request, code):
     if form.is_valid():
         check.timeout = td(seconds=form.cleaned_data["timeout"])
         check.grace = td(seconds=form.cleaned_data["grace"])
+        check.nag_interval = td(seconds=form.cleaned_data["nag"])
         check.save()
 
     return redirect("hc-checks")
