@@ -5,30 +5,6 @@
 
 
 {% block content %}
-
-<style>
-    
-    .nag-mode{
-        width:20px;
-        height:20px;
-        border-radius:50%;
-        margin: auto;
-    }
-
-    .safe-mode{
-        background-color:#228B22
-    }
-    .blink_me {
-        animation: blinker 0.3s linear infinite;
-        background-color:#B33A3A;    
-    }
-
-    @keyframes blinker {  
-        50% { opacity: 0; }
-    }
-
-</style>
-
 <div class="row">
     <div class="col-sm-12">
         <h1>
@@ -140,7 +116,6 @@
             {% csrf_token %}
             <input type="hidden" name="timeout" id="update-timeout-timeout" />
             <input type="hidden" name="grace" id="update-timeout-grace" />
-            <input type="hidden" name="nag" id="update-timeout-nag" />
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="update-timeout-info text-center">
@@ -174,22 +149,6 @@
 
                     <div id="grace-slider"></div>
 
-                    <div class="update-timeout-info text-center">
-                        <span
-                            class="update-timeout-label"
-                            data-toggle="tooltip"
-                            title="When the check goes down, how much time it takes between nags">
-                            Nag Interval
-                        </span>
-                        <span
-                            id="nag-slider-value"
-                            class="update-timeout-value">
-                            1 day
-                        </span>
-                    </div>
-
-                    <div id="nag-slider"></div>
-
                     <div class="update-timeout-terms">
                         <p>
                             <span>Period</span>
@@ -198,10 +157,6 @@
                         <p>
                             <span>Grace Time</span>
                             When a check is late, how much time to wait until alert is sent.
-                        </p>
-                        <p>
-                            <span>Nag Interval</span>
-                            When the check goes down, how much time it takes between nags.
                         </p>
                     </div>
 

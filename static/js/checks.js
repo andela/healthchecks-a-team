@@ -4,9 +4,7 @@ $(function () {
     var HOUR = {name: "hour", nsecs: MINUTE.nsecs * 60};
     var DAY = {name: "day", nsecs: HOUR.nsecs * 24};
     var WEEK = {name: "week", nsecs: DAY.nsecs * 7};
-    var MONTH = {name: "month", nsecs:WEEK.nsecs * 4.285714};
-    var YEAR = {name: "year", nsecs: WEEK.nsecs * 52.142857};
-    var UNITS = [YEAR, MONTH, WEEK, DAY, HOUR, MINUTE];
+    var UNITS = [WEEK, DAY, HOUR, MINUTE];
 
     var secsToText = function(total) {
         var remainingSeconds = Math.floor(total);
@@ -37,15 +35,15 @@ $(function () {
         start: [20],
         connect: "lower",
         range: {
-            'min': [60, 60], //min
-            '10%': [86400, 86400], //day
-            '20%': [604800, 604800], //week
-            '30%': [2592000, 2592000], //1month
-            'max': 31536000 //365days
+            'min': [60, 60],
+            '33%': [3600, 3600],
+            '66%': [86400, 86400],
+            '83%': [604800, 604800],
+            'max': 2592000,
         },
         pips: {
             mode: 'values',
-            values: [60, 86400, 604800, 2592000, 7776000, 15552000, 23328000, 31536000],
+            values: [60, 1800, 3600, 43200, 86400, 604800, 2592000],
             density: 4,
             format: {
                 to: secsToText,
@@ -66,15 +64,15 @@ $(function () {
         start: [20],
         connect: "lower",
         range: {
-            'min': [60, 60], //min
-            '10%': [86400, 86400], //day
-            '20%': [604800, 604800], //week
-            '30%': [2592000, 2592000], //1month
-            'max': 31536000 //365days
+            'min': [60, 60],
+            '33%': [3600, 3600],
+            '66%': [86400, 86400],
+            '83%': [604800, 604800],
+            'max': 2592000,
         },
         pips: {
             mode: 'values',
-            values: [60, 86400, 604800, 2592000, 7776000, 15552000, 23328000, 31536000],
+            values: [60, 1800, 3600, 43200, 86400, 604800, 2592000],
             density: 4,
             format: {
                 to: secsToText,
@@ -87,32 +85,6 @@ $(function () {
         var rounded = Math.round(value);
         $("#grace-slider-value").text(secsToText(rounded));
         $("#update-timeout-grace").val(rounded);
-    });
-
-    
-    var nagSlider = document.getElementById("nag-slider");
-    noUiSlider.create(nagSlider, {
-        start: [20],
-        connect: "lower",
-        range: {
-            'min': 60,
-            'max': 90000,
-        },
-        pips: {
-            mode: 'values',
-            values: [60, 18000, 36000, 54000, 72000, 90000],
-            density: 4,
-            format: {
-                to: secsToText,
-                from: function() {}
-            }
-        }
-    });
-
-    nagSlider.noUiSlider.on("update", function(a, b, value) {
-        var rounded = Math.round(value);
-        $("#nag-slider-value").text(secsToText(rounded));
-        $("#update-timeout-nag").val(rounded);
     });
 
 
@@ -136,7 +108,6 @@ $(function () {
         $("#update-timeout-form").attr("action", $this.data("url"));
         periodSlider.noUiSlider.set($this.data("timeout"))
         graceSlider.noUiSlider.set($this.data("grace"))
-        nagSlider.noUiSlider.set($this.data("nag"))
         $('#update-timeout-modal').modal({"show":true, "backdrop":"static"});
 
         return false;
