@@ -58,7 +58,7 @@ in development environment.
 
 * create database tables, triggers, superuser:
 
-        $ cd ~/webapps/healthchecks
+        $ cd ~/webapps/healthchecks-a-team
         $ ./manage.py migrate
         $ ./manage.py ensuretriggers
         $ ./manage.py createsuperuser
