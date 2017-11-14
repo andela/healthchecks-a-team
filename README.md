@@ -209,3 +209,38 @@ To enable Pushover integration, you will need to:
   subscription type
 * add the application token and subscription URL to `hc/local_settings.py`, as
   `PUSHOVER_API_TOKEN` and `PUSHOVER_SUBSCRIPTION_URL`
+
+### Twitter
+
+To enable Twitter integration, you will need to:
+
+* register a new application on your twitter developer console https://apps.twitter.com/
+* under the permissions tab, choose the `Read and Write` access option and update your settings
+* under the `Keys and Access Tokens` tab, generate click the `Generate consumer key and secret`
+* once the above is done add the  Consumer Key (API Key), Consumer Secret (API Secret), Access 
+   Token and Access Token Secret to `hc/local_settings.py`, as
+  `TWITTER_CONSUMER_KEY`, `TWITTER_CONSUMER_SECRET`, `TWITTER_ACCESS_TOKEN` and 
+  `TWITTER_ACCESS_TOKEN_SECRET` respectively
+
+### SMS
+
+To enable SMS integration, you will need to:
+
+* register a new application on the AfricasTalking site https://account.africastalking.com/
+* create a new application for healthchecks if it doesn't already exist
+* open the application created and under the `settings` menu on the left, select `API Key`
+   and follow instructions to generate an API Key
+* add the API Key and your Africas Talking username to `hc/local_settings.py`, as
+  `SMS_API_USERNAME` and `SMS_API_TOKEN` respectively
+
+  ### Telegram
+
+To enable Telegram integration, you will need to:
+
+* register a new account with telegram and log in to https://my.telegram.org
+* Go to `API development tools` and fill out the form.
+* add the application token and subscription URL to `hc/local_settings.py`, as
+  `TELEGRAM_API_ID` and `TELEGRAM_API_HASH` from the telegram account and an active
+  telegram telephone number that will be used to send the telegram notifications as
+  `TELEGRAM_PHONE_NUMBER` (must be of the format 254xxxxxxxxx (where 254 is the 
+  country code)
