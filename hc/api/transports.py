@@ -287,11 +287,18 @@ class Telegram(HttpTransport):
         try:
             client = TelegramClient('session_namee', api_id, api_hash)
             client.connect()
-            # client.sign_in(phone=phone)
-            # code = input()
-            # me = client.sign_in(code=code)
             client.send_message(self.channel.value, text)
             print("suceess")
         except:
-            print("fail")
-            pass
+            try:
+                client = TelegramClient('session_namee', api_id, api_hash)
+                client.connect()
+                client.sign_in(phone=phone)
+                code = input("Enter code: ")
+                me = client.sign_in(code=code)
+                client.send_message(self.channel.value, text)
+                print("suceess")
+                
+            except:
+                print("fail")
+                pass
