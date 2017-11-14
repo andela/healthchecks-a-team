@@ -7,3 +7,9 @@ static-collected
 
 */.DS_Store
 .idea/
+
+#telegram session file
+session_namee.session
+
+#nosetest html coverage files
+cover/
